@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>医路心愿墙 · Medical Wish Wall</title>
+  <meta name="description" content="医学生专属心愿墙——写下你的医路心愿，让每一份坚持都被看见。">
+  <meta property="og:title" content="医路心愿墙">
+  <meta property="og:description" content="医学生专属心愿墙——写下你的医路心愿，让每一份坚持都被看见。">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩺</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- 顶部心电图 + 标题 -->
+  <header class="hero">
+    <div class="hero-deco stethoscope" aria-hidden="true">🩺</div>
+    <div class="hero-deco pill" aria-hidden="true">💊</div>
+    <div class="hero-deco dna" aria-hidden="true">🧬</div>
+    <h1>医<span class="red">路</span>心愿墙</h1>
+    <p class="subtitle">凡心所向，素履以往 · 每一份坚持都值得被看见</p>
+    <svg class="ecg" viewBox="0 0 680 60" preserveAspectRatio="none" aria-hidden="true">
+      <polyline points="0,30 80,30 95,30 105,12 115,48 125,20 135,30 230,30 245,30 255,12 265,48 275,20 285,30 380,30 395,30 405,12 415,48 425,20 435,30 530,30 545,30 555,12 565,48 575,20 585,30 680,30"
+        fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+    </svg>
+  </header>
+
+  <!-- 统计栏 -->
+  <section class="stats-bar" aria-label="心愿统计">
+    <div class="stat"><span class="stat-num" id="stat-total">0</span><span class="stat-label">心愿总数</span></div>
+    <div class="stat"><span class="stat-num" id="stat-likes">0</span><span class="stat-label">累计点赞</span></div>
+    <div class="stat"><span class="stat-num" id="stat-top">—</span><span class="stat-label">最热分类</span></div>
+  </section>
+
+  <!-- 发布区：处方笺样式 -->
+  <section class="prescription" aria-label="写下心愿">
+    <div class="rx-head">
+      <span class="rx-logo">℞</span>
+      <div class="rx-title">
+        <strong>心愿处方笺</strong>
+        <small>Wish Prescription · 用法：每日默念三次，坚持服用</small>
+      </div>
+    </div>
+    <form id="wish-form" autocomplete="off">
+      <div class="form-row">
+        <input type="text" id="wish-name" maxlength="12" placeholder="签名（可匿名，如：19级临床小学妹）">
+        <select id="wish-cat" aria-label="选择分类">
+          <option value="考试通关">📝 考试通关</option>
+          <option value="考研上岸">🚢 考研上岸</option>
+          <option value="规培实习">🏥 规培实习</option>
+          <option value="科研论文">🔬 科研论文</option>
+          <option value="英语进阶">🌍 英语进阶</option>
+          <option value="身心健康">💚 身心健康</option>
+          <option value="其他">✨ 其他</option>
+        </select>
+      </div>
+      <textarea id="wish-text" rows="3" maxlength="120" placeholder="写下你的医路心愿……（例如：希望系解期末不挂，生理生化必有一劫也能渡过去！）" required></textarea>
+      <div class="form-foot">
+        <span class="char-count"><span id="char-num">0</span>/120</span>
+        <button type="submit" class="btn-submit">
+          <span class="btn-icon">💉</span> 开具处方 · 发布心愿
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <!-- 筛选 -->
+  <div class="filter-bar" id="filter-bar" role="tablist" aria-label="按分类筛选">
+    <button class="filter-btn active" data-cat="all">全部</button>
+    <button class="filter-btn" data-cat="考试通关">📝 考试</button>
+    <button class="filter-btn" data-cat="考研上岸">🚢 考研</button>
+    <button class="filter-btn" data-cat="规培实习">🏥 规培</button>
+    <button class="filter-btn" data-cat="科研论文">🔬 科研</button>
+    <button class="filter-btn" data-cat="英语进阶">🌍 英语</button>
+    <button class="filter-btn" data-cat="身心健康">💚 健康</button>
+    <button class="filter-btn" data-cat="其他">✨ 其他</button>
+  </div>
+
+  <!-- 心愿墙 -->
+  <main>
+    <div class="wall" id="wall" aria-live="polite"></div>
+    <div class="empty" id="empty" hidden>
+      <div class="empty-icon">🫀</div>
+      <p>这面墙还没有心跳——<br>来写下第一条心愿吧！</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>🩺 医路漫漫，愿你以梦为帆，以勤为桨 · <a href="https://github.com/dalihaif" target="_blank" rel="noopener">Made by dalihaif</a></p>
+    <p class="footer-quote">「健康所系，性命相托。」—— 医学生誓言</p>
+  </footer>
+
+  <!-- Toast 提示 -->
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
